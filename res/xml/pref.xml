@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="pref_use_buttons"
+        android:summary="Volume and headset buttons will be captured by this app."
+        android:title="Use buttons" />
+
+    <ListPreference
+        android:defaultValue="Split"
+        android:dependency="pref_use_buttons"
+        android:dialogTitle="Function"
+        android:entries="@array/command_names"
+        android:entryValues="@array/commands"
+        android:key="pref_volume_up_function"
+        android:title="Volume up function" />
+    <ListPreference
+        android:defaultValue="Split"
+        android:dependency="pref_use_buttons"
+        android:dialogTitle="Function"
+        android:entries="@array/command_names"
+        android:entryValues="@array/commands"
+        android:key="pref_volume_down_function"
+        android:title="Volume down function" />
+    <ListPreference
+        android:defaultValue="Split"
+        android:dependency="pref_use_buttons"
+        android:dialogTitle="Function"
+        android:entries="@array/command_names"
+        android:entryValues="@array/commands"
+        android:key="pref_headset_function"
+        android:title="Headset function" />
+
+    <EditTextPreference
+        android:key="pref_ip"
+        android:title="Server IP" />
+
+</PreferenceScreen>

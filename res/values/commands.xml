@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="commands">
+        <item>Startorsplit</item>
+        <item>Split</item>
+        <item>Unsplit</item>
+        <item>Skipsplit</item>
+        <item>Pause</item>
+        <item>Resume</item>
+        <item>Reset</item>
+        <item>Starttimer</item>
+    </string-array>
+    <string-array name="command_names">
+        <item>Start / Split</item>
+        <item>Start Timer</item>
+        <item>Split</item>
+        <item>Undo Split</item>
+        <item>Skip Split</item>
+        <item>Pause</item>
+        <item>Resume</item>
+        <item>Reset</item>
+    </string-array>
+
+</resources>
