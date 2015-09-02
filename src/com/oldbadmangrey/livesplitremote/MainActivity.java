@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		PreferenceManager.setDefaultValues(this, R.xml.pref, false);
 		setContentView(R.layout.activity_main);
 	}
 
@@ -32,6 +35,20 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			Intent in = new Intent(this, AppSettings.class);
+			startActivity(in);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private class MessageSenderTask extends AsyncTask<String, Void, Void> {
@@ -46,7 +63,8 @@ public class MainActivity extends Activity {
 		private void sendMsg(String msg) {
 			// String ip = "130.108.221.104";
 			// String ip = "10.1.44.248";
-			String ip = "130.108.222.129";
+			String ip = "10.1.19.119";
+			// String ip = "130.108.222.129";
 			try (Socket socket = new Socket(ip, 16834);
 					OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8")) {
 
@@ -67,18 +85,6 @@ public class MainActivity extends Activity {
 
 		}
 
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	private void call(String str) {
@@ -110,6 +116,10 @@ public class MainActivity extends Activity {
 
 	public void split(View view) {
 		call(Command.SPLIT.toString());
+	}
+
+	public void startOrSplit(View view) {
+		call(Command.START_OR_SPLIT.toString());
 	}
 
 	public void reset(View view) {
