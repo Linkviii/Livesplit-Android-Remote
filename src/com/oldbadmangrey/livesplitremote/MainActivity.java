@@ -9,6 +9,8 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
+
+	private final boolean DEBUG = false;
 
 	private SimpleDateFormat dateFormater = new SimpleDateFormat("h:m:s");
 
@@ -63,8 +67,11 @@ public class MainActivity extends Activity {
 		private void sendMsg(String msg) {
 			// String ip = "130.108.221.104";
 			// String ip = "10.1.44.248";
-			String ip = "10.1.19.119";
+			// String ip = "10.1.19.119";
 			// String ip = "130.108.222.129";
+			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+			String ip = sharedPref.getString("pref_ip", "");
+
 			try (Socket socket = new Socket(ip, 16834);
 					OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8")) {
 
@@ -131,29 +138,39 @@ public class MainActivity extends Activity {
 	}
 
 	public boolean dispatchKeyEvent(KeyEvent event) {
-		int action = event.getAction();
-		int keyCode = event.getKeyCode();
-		switch (keyCode) {
-		case KeyEvent.KEYCODE_VOLUME_UP:
-			if (action == KeyEvent.ACTION_DOWN) {
-				// TODO
-				call(Command.SPLIT.toString());
-			}
-			return true;
-		case KeyEvent.KEYCODE_VOLUME_DOWN:
-			if (action == KeyEvent.ACTION_DOWN) {
-				// TODO
-				call(Command.UNSPLIT.toString());
-			}
-			return true;
-		case KeyEvent.KEYCODE_HEADSETHOOK:
-			if (action == KeyEvent.ACTION_DOWN) {
-				call(Command.RESET.toString());
-			}
-			return true;
-		default:
-			return super.dispatchKeyEvent(event);
-		}
-	}
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+		boolean useButtons = sharedPref.getBoolean("pref_use_buttons", true);
 
+		if (useButtons) {
+			String upFunction = sharedPref.getString("pref_volume_up_function", null);
+			String downFunction = sharedPref.getString("pref_volume_down_function", null);
+			String headsetFunction = sharedPref.getString("pref_headset_function", null);
+
+			final String NONE = "nothing";
+			int action = event.getAction();
+			int keyCode = event.getKeyCode();
+			switch (keyCode) {
+			case KeyEvent.KEYCODE_VOLUME_UP:
+				if (action == KeyEvent.ACTION_DOWN && !upFunction.equals(NONE)) {
+
+					call(upFunction + "\r\n");
+				}
+				return true;
+			case KeyEvent.KEYCODE_VOLUME_DOWN:
+				if (action == KeyEvent.ACTION_DOWN && !downFunction.equals(NONE)) {
+
+					call(downFunction + "\r\n");
+				}
+				return true;
+			case KeyEvent.KEYCODE_HEADSETHOOK:
+				if (action == KeyEvent.ACTION_DOWN && !headsetFunction.equals(NONE)) {
+					call(headsetFunction + "\r\n");
+				}
+				return true;
+			default:
+				return super.dispatchKeyEvent(event);
+			}
+		}
+		return super.dispatchKeyEvent(event);
+	}
 }

@@ -2,24 +2,26 @@
 <resources>
 
     <string-array name="commands">
-        <item>Startorsplit</item>
-        <item>Split</item>
-        <item>Unsplit</item>
-        <item>Skipsplit</item>
-        <item>Pause</item>
-        <item>Resume</item>
-        <item>Reset</item>
-        <item>Starttimer</item>
+        <item>startorsplit</item>
+        <item>starttimer</item>
+        <item>split</item>
+        <item>skipsplit</item>
+        <item>unsplit</item>
+        <item>pause</item>
+        <item>resume</item>
+        <item>reset</item>
+        <item>nothing</item>
     </string-array>
     <string-array name="command_names">
         <item>Start / Split</item>
         <item>Start Timer</item>
         <item>Split</item>
-        <item>Undo Split</item>
         <item>Skip Split</item>
+        <item>Undo Split</item>
         <item>Pause</item>
         <item>Resume</item>
         <item>Reset</item>
+        <item>Nothing</item>
     </string-array>
 
 </resources>

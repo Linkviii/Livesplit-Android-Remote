@@ -14,4 +14,5 @@ public enum Command {
 	public String toString() {
 		return string;
 	}
+
 }
