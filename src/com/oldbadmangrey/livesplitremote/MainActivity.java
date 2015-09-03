@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
 		Date curDate = new Date();
 		String now = dateFormater.format(curDate);
 		txt.setText(now + " " + str.substring(0, str.length() - 2));
-		LinearLayout line = (LinearLayout) findViewById(R.id.line);
+		LinearLayout line = (LinearLayout) findViewById(R.id.lineFoo);
 		line.addView(txt);
 		// sendMsg("starttimer\r\n");
 		new MessageSenderTask().execute(str);
