@@ -38,5 +38,9 @@
         android:defaultValue=""
         android:key="pref_ip"
         android:title="Server IP" />
+    <EditTextPreference
+        android:defaultValue="16834"
+        android:key="pref_port"
+        android:title="Server Port" />
 
 </PreferenceScreen>
